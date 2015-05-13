@@ -1,0 +1,90 @@
+body {
+  background-color: #000;
+  color: #EEE;
+  font-family: "Museo Sans", sans-serif;
+}
+
+#whisper {
+  box-sizing: border-box;
+  padding: 1rem 2rem;
+}
+
+#whisper input, button {
+  height: 2rem;
+  line-height: 1.5rem;
+  background-color: black;
+
+  padding: 0rem 1rem;
+  border: 2px solid white;
+  border-radius: 2px;
+  color: #EEE;
+  font-size: 1rem;
+}
+
+#words {
+  width: 70%;
+}
+
+#whisper-submit{
+  width: 20%;
+}
+
+
+
+
+
+#gallery {
+ min-height: 30rem;
+ width: 100%;
+ overflow: hidden;
+ position: relative;
+ background: black;
+ color: #EEE;
+ border: 1px solid orange;
+}
+
+#gallery p {
+ position: absolute;
+ width: 100%;
+ height: 100%;
+ margin: 0;
+ line-height: 50px;
+ text-align: center;
+ color: #89F;
+
+ /* Starting position */
+ -moz-transform:translateY(-100%);
+ -webkit-transform:translateY(-100%);
+ transform:translateY(-100%);
+
+ /* Apply animation to this element */
+ -moz-animation: scroll-down 5s linear;
+ -webkit-animation: scroll-down 5s linear;
+ animation: scroll-down 5s linear;
+}
+
+
+/* Move it (define the animation) */
+@-moz-keyframes scroll-down {
+ 0%   { -moz-transform: translateY(-100%); }
+ 100% { -moz-transform: translateY(100%); }
+}
+
+@-webkit-keyframes scroll-down {
+ 0%   { -webkit-transform: translateY(-100%); }
+ 100% { -webkit-transform: translateY(100%); }
+}
+
+@keyframes scroll-down {
+ 0%  {
+ -moz-transform: translateY(-100%); /* Browser bug fix */
+ -webkit-transform: translateY(-100%); /* Browser bug fix */
+ transform: translateY(-100%);
+ }
+ 100% {
+ -moz-transform: translateY(100%); /* Browser bug fix */
+ -webkit-transform: translateY(100%); /* Browser bug fix */
+ transform: translateY(100%);
+ }
+
+}
