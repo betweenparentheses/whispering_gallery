@@ -6,10 +6,11 @@ class MessageCache
     heroku_redis = ENV["REDISCLOUD_URL"]
     if heroku_redis
       uri = URI.parse(heroku_redis)
-      @redis = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
+      $redis ||= Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
     else
-      @redis = Redis.new
+      $redis ||= Redis.new
     end
+    @redis = $redis
   end
 
   # returns all messages set to expire
