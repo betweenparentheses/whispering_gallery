@@ -12,7 +12,7 @@ class MessageCache
   def poll_messages
     return @redis.zrangebyscore( "messages",
                                  now,
-                                 -1,
+                                 in_thirty_minutes,
                                  with_scores: true ).
                   map{ |entry| { time: entry[1],
                                  message: entry[0] } }.
@@ -36,8 +36,8 @@ class MessageCache
     Time.now.utc.to_i
   end
 
-  def in_ten_minutes
-    now + 600
+  def in_thirty_minutes
+    now + 1800
   end
 
   # one hour expiration right now
