@@ -7,23 +7,25 @@ require_relative './models/message_cache.rb'
 
 configure do
   enable :logging
-end
 
-# configure do
-#   require 'redis'
-#   uri = URI.parse(ENV["REDISCLOUD_URL"])
-#   $redis = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
-# end
+  heroku_redis = ENV["REDISCLOUD_URL"]
+  if heroku_redis
+    uri = URI.parse(heroku_redis)
+    $redis ||= Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
+  else
+    $redis ||= Redis.new
+  end
+end
 
 
 get '/poll_messages.json' do
-  MessageCache.new.poll_messages
+  MessageCache.new($redis).poll_messages
 end
 
 post '/send_message.json' do
   params = JSON.parse(request.env["rack.input"].read)
   message = Sanitize.clean(params['message'])
-  cache = MessageCache.new
+  cache = MessageCache.new($redis)
   cache.add_message( message )
   return { (Time.now + 21600).utc.to_i => Sanitize.clean(message)}.to_json
 end
