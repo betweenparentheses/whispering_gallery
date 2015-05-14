@@ -35,8 +35,9 @@ class MessageCache
     now + 600
   end
 
+  # one hour expiration right now
   def new_expiration_score
-    (Time.now + 15).utc.to_i
+    (Time.now + 3600).utc.to_i
   end
 
 end
