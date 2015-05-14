@@ -3,7 +3,13 @@ require 'json'
 class MessageCache
 
   def initialize
-    @redis = Redis.new
+    heroku_redis = ENV["REDISCLOUD_URL"]
+    if heroku_redis
+      uri = URI.parse(heroku_redis)
+      @redis = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
+    else
+      @redis = Redis.new
+    end
   end
 
   # returns all messages set to expire
