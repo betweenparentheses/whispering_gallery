@@ -12,7 +12,7 @@ class MessageCache
   def poll_messages
     return @redis.zrangebyscore( "messages",
                                  now,
-                                 in_ten_minutes,
+                                 -1,
                                  with_scores: true ).
                   map{ |entry| { time: entry[1],
                                  message: entry[0] } }.
