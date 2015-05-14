@@ -52,7 +52,7 @@ var whispers = {
     });
 
     // run again in 10 minutes
-    setTimeout(whispers.pollServer, 10000);
+    setTimeout(whispers.pollServer, 600000);
   },
 
   checkMessages: function(){
