@@ -6,7 +6,7 @@ var whispers = {
   init: function(){
     $('#whisper').on('submit', whispers.makeWhisper );
     whispers.pollServer();
-    whispers.checkMessages();
+    setInterval(whispers.checkMessages, 1000);
   },
 
 
@@ -55,6 +55,7 @@ var whispers = {
     setTimeout(whispers.pollServer, 600000);
   },
 
+
   checkMessages: function(){
 
     var seconds = Math.floor( new Date() / 1000 );
@@ -65,11 +66,10 @@ var whispers = {
                  nowMessage +
                  '</p>');
       $('#gallery').prepend(pTag);
+
+      delete whispers.messages[seconds];
     };
 
-    delete whispers.messages[seconds];
-
-    setTimeout(whispers.checkMessages, 1000);
   }
 
 };
