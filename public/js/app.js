@@ -14,7 +14,7 @@ var whispers = {
   startSocket: function(){
     var ws = new WebSocket('ws://' + window.location.host + window.location.pathname);
     ws.onopen = function(){ }; // show something
-    ws.onclose = function(){ }; // show something
+    ws.onclose = function(){ alert('Connection broken.'); }; // show something
 
     ws.onmessage = function(msg){
       if(msg.data === "*WHISPER SENT*"){

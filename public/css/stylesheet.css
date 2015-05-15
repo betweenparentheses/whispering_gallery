@@ -66,9 +66,9 @@ body.pulse {
  transform:translateY(-100%);
 
  /* Apply animation to this element */
- -moz-animation: scroll-down 5s linear;
- -webkit-animation: scroll-down 5s linear;
- animation: scroll-down 5s linear;
+ -moz-animation: scroll-down 5s cubic-bezier(.06,.86,.62,.9);
+ -webkit-animation: scroll-down 5s cubic-bezier(.06,.86,.62,.9);
+ animation: scroll-down 5s cubic-bezier(.06,.86,.62,.9);
 }
 
 

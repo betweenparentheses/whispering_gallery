@@ -6,7 +6,7 @@ require 'redis'
 require 'sanitize'
 require 'json'
 
-# require_relative './models/message_cache.rb'
+require_relative './models/message_cache.rb'
 
 set :server, 'thin'
 
