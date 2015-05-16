@@ -23,6 +23,7 @@ configure do
   end
 end
 
+
 set(:watcher, Thread.new do
   redis = Redis.new
   Thread.current['sockets'] = []
@@ -36,64 +37,34 @@ set(:watcher, Thread.new do
   end
 end)
 
-get '/socket' do
-  if request.websocket?
-    request.websocket do |ws|
-      ws.onopen do
-        ws.send("Hello World!")
-        settings.watcher['sockets'] << ws
-      end
-      ws.onmessage do |msg|
-        $redis.publish 'foobar', msg
-      end
-      ws.onclose do
-        warn('websocket has been closed')
-        settings.watcher['sockets'].delete(ws)
-      end
+
+get '/whisper' do
+  cache = MessageCache.new($redis)
+  request.websocket do |ws|
+    ws.onopen do
+      ws.send("We're whispering!")
+      settings.watcher['sockets'] << ws
     end
-  else
-    erb :socket
-  end
-end
-
-
-# get '/poll_messages.json' do
-#   MessageCache.new($redis).poll_messages
-# end
-
-# post '/send_message.json' do
-#   params = JSON.parse(request.env["rack.input"].read)
-#   message = Sanitize.clean(params['message'])
-#   cache = MessageCache.new($redis)
-#   cache.add_message( message )
-#   return { (Time.now + 21600).utc.to_i => Sanitize.clean(message)}.to_json
-# end
-
-get '/' do
-
-  # @messages = $redis.zrange "messages", 0, -1, with_scores: true
-  # @messages = $redis.zrangebyscore "messages", Time.now.utc.to_i, (Time.now + 21600).utc.to_i, with_scores: true
-  # @count = $redis.zcard "messages"
-
-  if request.websocket?
-    request.websocket do |ws|
-      ws.onopen do
-        ws.send("We're whispering!")
-        settings.watcher['sockets'] << ws
-      end
-      ws.onmessage do |msg|
-        $redis.publish 'whispers', "*WHISPER SENT*"
+    ws.onmessage do |msg|
+      if msg == "/refresh/"
+        $redis.publish 'whispers', cache.poll_messages
+      else
+        $redis.publish 'whispers', "/sent/"
         cache = MessageCache.new($redis)
         cache.add_message( msg )
       end
-      ws.onclose do
-        warn('websocket has been closed')
-        settings.watcher['sockets'].delete(ws)
-      end
     end
-  else
-    erb :index
+    ws.onclose do
+      warn('websocket has been closed')
+      settings.watcher['sockets'].delete(ws)
+    end
   end
+end
+
+get '/' do
+
+
+  erb :index
 
 end
 
