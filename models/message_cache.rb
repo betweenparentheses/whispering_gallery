@@ -12,8 +12,9 @@ class MessageCache
                                  now,
                                  in_thirty_minutes,
                                  with_scores: true ).
-                  map{ |entry| { time: entry[1],
-                                 message: entry[0] } }.
+                  each_with_object({}) do |entry, hash|
+                    hash[ entry[1].to_i ] = entry[0]
+                  end.
                   to_json
   end
 
@@ -43,7 +44,7 @@ class MessageCache
 
   # one hour expiration right now
   def new_expiration_score
-    now + 10
+    now + 28800
   end
 
 end
