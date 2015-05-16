@@ -15,12 +15,19 @@ var whispers = {
     ws.onclose = function(){ alert('Connection broken.'); }; // show something
 
     ws.onmessage = function(msg){
+
+      // if you get the /sent/ signal, pulse the screen
       if(msg.data === "/sent/"){
         whispers.pulse();
+
+      // if it looks like a JSON --- hackity hack hack
+      // Parse it into a JSON
       } else if(msg.data.match(/\{/)){
-        console.log(msg.data);
         var newMessages = $.parseJSON(msg.data);
         $.extend(whispers.messages, newMessages);
+
+      // Treat anything else like a direct message
+      // To be immediately broadcast
       } else {
         var pTag = $('<p>' + msg.data + '</p>');
         $('#gallery').prepend(pTag);
@@ -30,10 +37,12 @@ var whispers = {
     return ws;
   },
 
+  // sends code to server asking for a new JSON of messages
   refresh: function(){
     whispers.ws.send("/refresh/");
 
-    setTimeout(whispers.refresh, 3600000);
+    // refresh every 50 seconds to keep the socket awake
+    setTimeout(whispers.refresh, 50000);
   },
 
   pulse: function(){
@@ -43,6 +52,7 @@ var whispers = {
     }, 500);
   },
 
+  // send information
   makeWhisper: function(event){
     event.preventDefault();
     var words = $('#words');
