@@ -26,6 +26,9 @@ end
 
 set(:watcher, Thread.new do
   redis = Redis.new
+  puts redis.inspect
+  puts redis.host
+  puts redis.port
   Thread.current['sockets'] = []
 
   redis.subscribe 'whispers' do |on|
