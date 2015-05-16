@@ -11,6 +11,10 @@ body.pulse {
   background-color: #264;
 }
 
+a {
+  text-decoration: none;
+}
+
 #whisper {
   box-sizing: border-box;
   padding: 1rem 2rem;
@@ -37,7 +41,10 @@ body.pulse {
   width: 20%;
 }
 
-
+#about-link{
+  text-decoration: none;
+  color: #264;
+}
 
 
 
@@ -85,14 +92,20 @@ body.pulse {
 
 @keyframes scroll-down {
  0%  {
- -moz-transform: translateY(-100%); /* Browser bug fix */
- -webkit-transform: translateY(-100%); /* Browser bug fix */
+ -moz-transform: translateY(-100%);
+ -webkit-transform: translateY(-100%);
  transform: translateY(-100%);
  }
  100% {
- -moz-transform: translateY(100%); /* Browser bug fix */
- -webkit-transform: translateY(100%); /* Browser bug fix */
+ -moz-transform: translateY(100%);
+ -webkit-transform: translateY(100%);
  transform: translateY(100%);
  }
 
+}
+
+
+
+.container {
+  padding: 8rem;
 }

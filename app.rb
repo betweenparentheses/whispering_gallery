@@ -71,12 +71,19 @@ get '/whisper' do
       end
     end
   else
-    render 401
+    # forbidden for non-websocket requests
+    render 403
   end
 end
 
-get '/' do
 
+get '/about' do
+  erb :about, layout: false
+end
+
+
+
+get '/' do
 
   erb :index
 

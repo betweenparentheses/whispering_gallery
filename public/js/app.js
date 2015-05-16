@@ -33,7 +33,7 @@ var whispers = {
   refresh: function(){
     whispers.ws.send("/refresh/");
 
-    setTimeout(whispers.refresh, 6000);
+    setTimeout(whispers.refresh, 3600000);
   },
 
   pulse: function(){
