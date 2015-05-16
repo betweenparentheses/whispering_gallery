@@ -10,7 +10,7 @@ var whispers = {
   },
 
   startSocket: function(){
-    var ws = new WebSocket('ws://' + window.location.host + '/whisper');
+    var ws = new WebSocket('wss://' + window.location.host + '/whisper');
     ws.onopen = function(){ whispers.refresh(); }; // show something
     ws.onclose = function(){ alert('Connection broken.'); }; // show something
 
