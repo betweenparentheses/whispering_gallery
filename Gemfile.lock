@@ -4,6 +4,7 @@ GEM
     addressable (2.3.8)
     crass (1.0.2)
     daemons (1.2.2)
+    diff-lcs (1.2.5)
     em-websocket (0.3.8)
       addressable (>= 2.1.1)
       eventmachine (>= 0.12.9)
@@ -17,6 +18,19 @@ GEM
     rack-protection (1.5.3)
       rack
     redis (3.2.1)
+    rspec (3.2.0)
+      rspec-core (~> 3.2.0)
+      rspec-expectations (~> 3.2.0)
+      rspec-mocks (~> 3.2.0)
+    rspec-core (3.2.3)
+      rspec-support (~> 3.2.0)
+    rspec-expectations (3.2.1)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.2.0)
+    rspec-mocks (3.2.1)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.2.0)
+    rspec-support (3.2.2)
     sanitize (4.0.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.4.4)
@@ -40,6 +54,7 @@ PLATFORMS
 
 DEPENDENCIES
   redis
+  rspec
   sanitize
   sinatra
   sinatra-websocket

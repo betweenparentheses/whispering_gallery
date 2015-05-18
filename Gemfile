@@ -7,3 +7,7 @@ gem 'sinatra-websocket'
 gem 'redis'
 gem 'sanitize'
 gem 'thin'
+
+group :test, :development do
+  gem 'rspec'
+end
