@@ -7,6 +7,7 @@ gem 'sinatra-websocket'
 gem 'redis'
 gem 'sanitize'
 gem 'thin'
+gem 'newrelic_rpm'
 
 group :test, :development do
   gem 'rspec'
